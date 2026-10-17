@@ -13,7 +13,7 @@ from PIL import Image
 class WorkflowTest(unittest.TestCase):
     def setUp(self):
         self.temporary = tempfile.TemporaryDirectory()
-        self.root = Path(self.temporary.name)
+        self.root = Path(self.temporary.name).resolve()
         self.previous = os.environ.get('IMAGE_BUILD_DATA')
         os.environ['IMAGE_BUILD_DATA'] = str(self.root / 'config')
         spec = importlib.util.spec_from_file_location('workbench_test', Path(__file__).parents[1] / 'app.py')
