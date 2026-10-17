@@ -1,0 +1,13 @@
+.venv/
+.local/
+__pycache__/
+*.pyc
+*.log
+dist/
+/1/
+/2/
+/3/
+# Personal images in the project root are not source code.
+/*.jpg
+/*.png
+/*.webp

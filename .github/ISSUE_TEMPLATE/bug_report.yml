@@ -1,0 +1,28 @@
+name: 问题反馈
+description: 启动、处理、归档或界面遇到问题
+labels: [bug]
+body:
+  - type: textarea
+    id: environment
+    attributes:
+      label: 运行环境
+      description: Windows 版本、项目版本，是否使用 Codex 模式
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: 预期结果与实际结果
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 截图或错误信息
+      description: 请去掉私人路径、个人图片和登录凭证。

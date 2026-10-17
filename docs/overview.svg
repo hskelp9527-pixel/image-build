@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="600" viewBox="0 0 1200 600">
+<rect width="1200" height="600" rx="20" fill="#f3f6ef"/>
+<g font-family="Segoe UI,Microsoft YaHei,Arial,sans-serif">
+<rect x="52" y="48" width="42" height="42" rx="10" fill="#28644e"/><text x="62" y="78" fill="white" font-size="30">▧</text>
+<text x="110" y="79" fill="#243b2e" font-size="28" font-weight="700">Image Build</text>
+<text x="52" y="159" font-size="42" font-weight="700" fill="#243b2e">好图片，有条不紊。</text>
+<text x="52" y="202" font-size="20" fill="#72816e">批量加水印 · Codex 创意改图 · 跨日期自动归档</text>
+<g fill="white" stroke="#dce4d6"><rect x="52" y="256" width="330" height="226" rx="14"/><rect x="435" y="256" width="330" height="226" rx="14"/><rect x="818" y="256" width="330" height="226" rx="14"/></g>
+<g fill="#28644e" font-size="16" font-weight="700"><text x="78" y="294">01 / 未加水印</text><text x="461" y="294">02 / 加水印</text><text x="844" y="294">03 / 已归档</text></g>
+<g fill="#eaf0e3"><rect x="78" y="317" width="278" height="80" rx="8"/><rect x="461" y="317" width="278" height="80" rx="8"/><rect x="844" y="317" width="278" height="80" rx="8"/></g>
+<g fill="#496a52" font-size="19"><text x="98" y="366">选择图片，默认全选</text><text x="483" y="366">@YourName</text><text x="866" y="366">2026-10-17</text></g>
+<g fill="#788773" font-size="15"><text x="78" y="430">文字 / Logo，自由设置</text><text x="78" y="457">三个文件夹，自行选择</text><text x="461" y="430">本地直接叠加，或 AI 设计</text><text x="461" y="457">处理成功后自动移动</text><text x="844" y="430">日期变化即归档，不等 24 小时</text><text x="844" y="457">按日期查找，也能手动移回</text></g>
+<g fill="#7b9274" font-size="30"><text x="398" y="376">→</text><text x="781" y="376">→</text></g>
+<text x="52" y="547" fill="#71836b" font-size="16">Windows 一键启动 · 本地工作台 · MIT 开源</text>
+<text x="52" y="575" fill="#8a9785" font-size="13">Codex 模式需登录账号，原图会交给 Codex 服务。归档仅表示素材整理状态。</text>
+</g></svg>

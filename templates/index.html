@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="workspace-token" content="{{ token }}">
+  <title>Image Build · 图片工作台</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/additions.css">
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="/"><span class="brand-icon">▧</span> Image Build <span class="brand-sub">图片工作台</span></a><div class="top-actions"><span class="local"><i></i> 本地处理</span><button id="settings-button" class="quiet">⚙ 文件夹设置</button></div></header>
+  <main>
+    <div class="page-heading"><div><p class="eyebrow">YOUR DAILY IMAGE WORKFLOW</p><h1>好图片，有条不紊。</h1><p class="muted">添加水印，整理素材，把时间留给创作。</p></div><span class="date" id="today"></span></div>
+    <div class="workflow"><span><b>01</b> 放入原图</span><i>→</i><span><b>02</b> 批量加水印</span><i>→</i><span><b>03</b> 按日期归档</span><small>本地叠加 / Codex 创意改图</small></div>
+    <div id="folder-notice" class="notice" hidden>先设置三个图片文件夹，工作台就准备好了。<button id="setup-button">选择文件夹 →</button></div>
+    <div id="error-notice" class="notice error" hidden></div>
+    <section class="workspace">
+      <div class="library">
+        <nav class="tabs" aria-label="图片分类"><button data-tab="original" class="active">未加水印 <span>0</span></button><button data-tab="ready">加水印 <span>0</span></button><button data-tab="archive">已归档 <span>0</span></button></nav>
+        <div class="library-toolbar"><label class="check"><input type="checkbox" id="select-all"> 全选 <span id="selection-count">0 张</span></label><div><button id="open-folder" class="quiet">打开文件夹 ↗</button><button id="refresh" class="quiet" aria-label="刷新图片">↻ 刷新</button></div></div>
+        <div class="path-line" id="current-path">尚未选择文件夹</div>
+        <div id="date-filter" class="date-filter" aria-label="按日期筛选"></div>
+        <div id="gallery" class="gallery"></div>
+        <div id="empty" class="empty" hidden><span>▧</span><h3>这里还没有图片</h3><p id="empty-description">把图片放入原图文件夹，再点击刷新。</p><button id="empty-folder" class="secondary">打开文件夹</button></div>
+      </div>
+      <aside>
+        <section id="watermark-panel"><p class="eyebrow">MAKE IT YOURS</p><h2>给作品一个签名</h2><p class="muted small">文字或 Logo，批量完成。</p>
+          <label for="engine">处理方式</label><select id="engine"><option value="local">直接加水印 · 本地叠加</option><option value="codex">唤醒 Codex · 创意改图</option></select>
+          <div id="creative-fields" hidden><label for="creative">希望怎么设计？</label><textarea id="creative" rows="4" maxlength="4000" placeholder="例如：把账号融入画面中的招牌，字体和光影与原图协调，不遮挡人物。"></textarea><p class="footnote" id="codex-status">正在检查 Codex 环境…</p><button id="check-environment" class="secondary full">重新检查环境</button><p class="footnote">新电脑先双击 start.bat：安装 Python、Node.js、Codex 和依赖，并完成账号登录。</p></div>
+          <div class="segmented"><button data-mode="text" class="active">文字水印</button><button data-mode="logo">图片 / Logo</button></div>
+          <div id="text-fields"><label for="watermark-text">水印文字</label><input id="watermark-text" type="text" maxlength="160" value="@Alexvhyn" placeholder="输入你的名字或账号"><div class="color-row"><label for="color">文字颜色</label><input type="color" id="color" value="#ffffff"></div></div>
+          <div id="logo-fields" hidden><label class="upload" for="logo-upload"><span>＋ 上传 Logo</span><small id="logo-status">支持透明 PNG、JPG、WebP</small></label><input type="file" id="logo-upload" accept="image/png,image/jpeg,image/webp" hidden></div>
+          <label for="position">水印位置</label><select id="position"><option value="bottom-right">右下角</option><option value="bottom-left">左下角</option><option value="top-right">右上角</option><option value="top-left">左上角</option><option value="center">居中</option></select>
+          <label for="size" class="range-label">水印大小 <output id="size-value">6%</output></label><input type="range" id="size" min="2" max="30" value="6">
+          <label for="opacity" class="range-label">不透明度 <output id="opacity-value">75%</output></label><input type="range" id="opacity" min="5" max="100" value="75">
+          <button id="preview" class="secondary full">预览本地叠加效果</button><button id="apply" class="primary full"><span id="apply-label">直接加水印</span> · <span id="apply-count">0</span> 张</button><p class="footnote" id="engine-note">成功后移入“加水印”，从待处理文件夹移除；失败的图片留在原处。</p>
+        </section>
+        <section id="codex-jobs" class="codex-jobs" hidden><h3>Codex 改图任务</h3><p class="footnote">成品完成后自动导回第二栏，可点击刷新检查。</p><div id="job-list"></div></section>
+        <section id="archive-panel" hidden><p class="eyebrow">A PLACE FOR EVERYTHING</p><h2 id="archive-title">整理完成的图片</h2><p class="muted small" id="archive-description">选中图片后可立即移入已归档文件夹。</p><button id="move" class="primary full">将选中图片归档</button><button id="restore" class="primary full" hidden>移回加水印</button><p class="footnote">归档是文件整理状态，不代表已经发布到 X。</p></section>
+        <div class="archive-note"><div><span class="note-icon">◷</span><strong>跨日期，自动归档</strong></div><p>成品自带时间戳，与电脑本地日期对比。日期变了就移入归档，不等满 24 小时。</p><label class="check"><input type="checkbox" id="auto-archive" checked> 开启按日期自动归档</label><small>随启动脚本在后台运行，关闭网页仍有效；停止启动进程后暂停，下次启动补做。</small></div>
+      </aside>
+    </section>
+    <footer><span>IMAGE BUILD</span> 为创作者准备的本地图片工作台 <span>本地模式离线可用 · Codex 模式需登录</span></footer>
+  </main>
+  <dialog id="settings-dialog"><form id="settings-form"><div class="dialog-heading"><div><p class="eyebrow">YOUR FILES, YOUR CHOICE</p><h2>图片保存在哪里？</h2></div><button type="button" class="close" data-close="settings-dialog" aria-label="关闭">×</button></div><p class="muted small">选择这台电脑上的三个独立文件夹。以后随时可以更换。</p>
+    <div class="folder-field"><label for="folder-original">01 · 未加水印</label><div><input id="folder-original" placeholder="选择文件夹，或粘贴完整路径" required><button type="button" data-pick="original" class="secondary">浏览…</button></div><small>把 AI 生成的原图放在这里。</small></div>
+    <div class="folder-field"><label for="folder-ready">02 · 加水印</label><div><input id="folder-ready" placeholder="选择文件夹，或粘贴完整路径" required><button type="button" data-pick="ready" class="secondary">浏览…</button></div><small>水印成品按日期保存，发布时从这里选图。</small></div>
+    <div class="folder-field"><label for="folder-archive">03 · 已归档</label><div><input id="folder-archive" placeholder="选择文件夹，或粘贴完整路径" required><button type="button" data-pick="archive" class="secondary">浏览…</button></div><small>存放手动或跨天归档的图片，不判断是否发布。</small></div>
+    <p class="footnote">更换路径只切换工作台读取位置，不搬迁旧文件。外部图片优先读取内嵌时间戳，无记录时读取文件修改时间。</p><p id="settings-error" class="inline-error" role="alert"></p><button type="submit" class="primary full">保存文件夹设置</button></form></dialog>
+  <dialog id="preview-dialog"><div class="dialog-heading"><h2>水印效果预览</h2><button class="close" data-close="preview-dialog" aria-label="关闭">×</button></div><img id="preview-image" alt="水印效果预览"><p class="footnote">预览适配屏幕；输出保持原图尺寸。</p></dialog>
+  <div id="toast" role="status" hidden></div>
+  <script src="/static/app.js"></script>
+</body></html>
